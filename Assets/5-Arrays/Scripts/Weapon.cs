@@ -7,7 +7,7 @@ namespace Arrays
     public class Weapon : MonoBehaviour
     {
         public int damage = 10;
-            public int maxBullets = 30;
+        public int maxBullets = 30;
         public float bulletSpeed = 20f;
         public float fireInterval = 0.2f;
         public GameObject bulletPrefab;
@@ -28,7 +28,7 @@ namespace Arrays
         void Update()
         {
             // IF !isFired AND currentBullets < maxBullets
-                if (!isFired && currentBullets <maxBullets)
+                if (!isFired && currentBullets < maxBullets)
             {
                 //startCoroutine Fire()
                 StartCoroutine(Fire());
@@ -39,12 +39,14 @@ namespace Arrays
             //run whatever is here first
             isFired = true;
 
-
+            yield return new WaitForSeconds(fireInterval); //wait a few seconds
+            
+            //run whatever was here last
+            isFired = false;
+            
             // Spawn the bullet
             spawnBullet();
 
-            yield return new WaitForSeconds(fireInterval); //wait a few seconds
-            //run whatever was here last
         }
         // Fire a cremeBullet
         void spawnBullet()
@@ -57,10 +59,10 @@ namespace Arrays
             // 3. Grab bullet script from clone
             transform.rotation = Quaternion.LookRotation(direction);
 
-            Vector3 evlerAngles = transform.eulerAngles;
+            Vector3 eulerAngles = transform.eulerAngles;
             float angle = Vector3.Angle(Vector3.right, direction);
-            evlerAngles.z = angle;
-            transform.eulerAngles = evlerAngles;
+            eulerAngles.z = angle;
+            transform.eulerAngles = eulerAngles;
             // 4. Send bullet to target
             Bullet bullet = clone.GetComponent<Bullet>();
             // 5. Store bullet in Array
