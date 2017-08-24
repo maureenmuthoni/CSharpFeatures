@@ -30,7 +30,6 @@ namespace BreakOut
             // Error handling
             if (index > blockPrefabs.Length || index < 0)
                 return null;
-
             //Randomly Spawn a new GameObject
 
             GameObject randomPrefab = blockPrefabs[index];
