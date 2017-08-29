@@ -40,7 +40,7 @@ public class KeepWithinScreen : MonoBehaviour
             pos.x = camBounds.min.x + halfWidth;
         }
         // check right
-        if (pos.y - halfWidth > camBounds.max.x)
+        if (pos.x + halfWidth > camBounds.max.x)
         {
             pos.x = camBounds.max.x - halfWidth;
         }
