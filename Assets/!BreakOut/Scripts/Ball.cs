@@ -22,6 +22,10 @@ namespace Breakout
             Vector3 reflect = Vector3.Reflect(velocity, contact.normal);
             //Redirecting the velocity to reflection
             velocity = reflect.normalized * velocity.magnitude;
+            if (other.gameObject.tag=="Block")
+            {
+                Destroy(other.gameObject);
+            }
         }
 
         // Update is called once per frame

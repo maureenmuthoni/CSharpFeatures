@@ -7,16 +7,20 @@ namespace Breakout
     {
         public float movementSpeed = 20f;
         public Ball currentBall;
+        // Directions Array
         public Vector3[] directions = new Vector3[]
         {
             new Vector2(.5f, .5f), // index0
             new Vector2(-.5f, .5f)
         };
+        public bool isStart;
+
         // Use this for initialization
         void Start()
         {
             // Grabs currentBall fom the children of the paddle
             currentBall = GetComponentInChildren<Ball>();
+            isStart = true;
         }
         void Fire()
         {
@@ -26,12 +30,16 @@ namespace Breakout
             Vector3 randomDir = directions[Random.Range(0, directions.Length)];
             // Fire off ball in randomDirection
             currentBall.Fire(randomDir);
+            isStart = false;
         }
         void CheckInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Fire();
+                if (isStart == true)
+                {
+                    Fire();
+                }
             }
         }
 

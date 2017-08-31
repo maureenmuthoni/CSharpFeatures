@@ -25,6 +25,34 @@ namespace Billiards
 
         }
 
+        //Update is called once per frame
+        void Update()
+        {
+            // Check if left mouse button is pressed
+            if (Input.GetMouseButtonDown(0))
+            {
+                // Store the click position as the 'prevMousePos'
+                prevMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            }
+            // Check if left mouse button is pressed
+            if (Input.GetMouseButton(0))
+            {
+                // Perform drag mechanic
+                Drag();
+            }
+            else
+            {
+                // Perform aim mechanic
+                Aim();
+            }
+            // Check if left mouse button is up
+            if (Input.GetMouseButtonUp(0))
+            {
+                // Hit the ball
+               Fire();
+            }
+        }
+
         // Rotates the cue  to whererver  the mouse is pointing(using raycast)
         // Update is called once per frame
         void Aim()
@@ -43,6 +71,7 @@ namespace Billiards
                 //  Rotate towards that angle
                 transform.rotation = Quaternion.AngleAxis(angle, Vector3.up);
                 // Position cue to the ball's position;
+                transform.position = targetBall.transform.position;
             }
 
         }
@@ -76,6 +105,13 @@ namespace Billiards
             // Get direction to target ball 
             aimDirection = (targetPos - transform.position).normalized;
         
+        }
+        void Fire()
+        {
+            // Hit the ball with direction and power
+          targetBall.Hit(aimDirection, hitPower);
+            // Deactivate the cue when done
+            Deactivate();
         }
   }
 

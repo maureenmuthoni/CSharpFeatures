@@ -43,6 +43,14 @@ namespace Billiards
         {
             rigid.AddForce(direction * impactForce, ForceMode.Impulse);
         }
+
+        void OnCollisionEnter(Collision other)
+        {
+            if(other.gameObject.CompareTag("Pocket"))
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }
         
