@@ -17,7 +17,8 @@ namespace Minesweeper2D
         {
             // Clone tile prefab
             GameObject clone = Instantiate(tilePrefab);
-            clone.transform.position = pos; // position tile
+            // position tile
+            clone.transform.position = new Vector3(spacing / 4, spacing / 4, 0) + pos;
             Tile currentTile = clone.GetComponent<Tile>(); // Get Tile Component
             return currentTile;  //Return current tile
         }
@@ -57,6 +58,17 @@ namespace Minesweeper2D
         {
             GenerateTiles();
         }
+        // Update is called once per frame
+        void Update()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                Ray2D clicked = Camera.main.ScreenPointToRay();
+                RaycastHit2D hit;
+            }
+     
+           
+        }
 
         // Count adjacent mines at element
         public int GetAdjacentMineCountAt(Tile t)
@@ -65,13 +77,27 @@ namespace Minesweeper2D
             // Loop through all elements and have each axs go between -1 to 1
             for (int x = -1; x <= 1; x++)
             {
-                // calculate desired coordinates from one attained
-                int desiredX = t.x + x;
-                // iF desiredx is within range of tiles array length
-                //Inrement count  by 1
+                for (int y = -1; y <= 1; y++)
+                {
+                    // calculate desired coordinates from one attained
+                    int desiredX = t.x + x;
+                    int desiredY = t.y + y;
+                    // iF desiredx is within range of tiles array length
+                    if (desiredX < height && desiredY < width)
+                    {
+                        if (tiles[x, y].isMine)
+                        {
+                            //Increment count  by 1
+                            count++;
+                        }
+                    }
+                    
+                }
             }
             return count;
         }
+        }
     }
-}
+
+
         

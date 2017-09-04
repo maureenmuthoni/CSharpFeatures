@@ -9,7 +9,14 @@ namespace Breakout
     {
         public float speed = 5f; //speed at which the ball travels
         private Vector3 velocity; // velocity = direction x speed
+        public int scoreValue;
+        public ScoreManager ScoreManager;
 
+
+        void Start()
+        {
+            ScoreManager = GetComponent<ScoreManager>();
+        }
         public void Fire(Vector3 direction)
         {
             velocity = direction * speed;
@@ -26,6 +33,7 @@ namespace Breakout
             {
                 Destroy(other.gameObject);
             }
+            ScoreManager.AddScore(scoreValue);
         }
 
         // Update is called once per frame
@@ -36,3 +44,4 @@ namespace Breakout
         }
     }
 }
+
