@@ -63,7 +63,6 @@ namespace Minesweeper2D
         {
             if (Input.GetMouseButtonUp(0))
             {
-                Ray2D clicked = Camera.main.ScreenPointToRay();
                 RaycastHit2D hit;
             }
      
