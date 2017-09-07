@@ -66,7 +66,7 @@ namespace Minesweeper2D
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
                 // Check if something is hit
-                if(hit.collider != null)
+                if (hit.collider != null)
                 {
                     Tile t = hit.collider.GetComponent<Tile>();
                     if (t)
@@ -76,8 +76,8 @@ namespace Minesweeper2D
                     }
                 }
             }
-     
-           
+
+
         }
 
         // Count adjacent mines at element
@@ -92,23 +92,29 @@ namespace Minesweeper2D
                     // calculate desired coordinates from one attained
                     int desiredX = t.x + x;
                     int desiredY = t.y + y;
+
                     // iF desiredx is within range of tiles array length
-                    if (desiredX < height && desiredY >=0)
+                    if (desiredX < height && desiredX >= 0)
                     {
-                        Tile tile = tiles[desiredX, desiredY];
-                        if (tile.isMine)
+
+                        if (desiredY < height && desiredY >= 0)
                         {
-                            //Increment count  by 1
-                            count++;
+                            Tile tile = tiles[desiredX, desiredY];
+                            if (tile.isMine)
+                            {
+                                //Increment count  by 1
+                                count++;
+                            }
                         }
+
                     }
-                    
                 }
+                
             }
             return count;
         }
-        }
     }
+}
 
 
         
