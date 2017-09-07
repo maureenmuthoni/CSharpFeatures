@@ -59,11 +59,22 @@ namespace Minesweeper2D
             GenerateTiles();
         }
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             if (Input.GetMouseButtonUp(0))
             {
-                RaycastHit2D hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                // Check if something is hit
+                if(hit.collider != null)
+                {
+                    Tile t = hit.collider.GetComponent<Tile>();
+                    if (t)
+                    {
+                        int adjacentMines = GetAdjacentMineCountAt(t);
+                        t.Reveal(adjacentMines);
+                    }
+                }
             }
      
            
@@ -82,9 +93,10 @@ namespace Minesweeper2D
                     int desiredX = t.x + x;
                     int desiredY = t.y + y;
                     // iF desiredx is within range of tiles array length
-                    if (desiredX < height && desiredY < width)
+                    if (desiredX < height && desiredY >=0)
                     {
-                        if (tiles[x, y].isMine)
+                        Tile tile = tiles[desiredX, desiredY];
+                        if (tile.isMine)
                         {
                             //Increment count  by 1
                             count++;
