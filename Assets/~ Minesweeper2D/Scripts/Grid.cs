@@ -83,7 +83,7 @@ namespace Minesweeper2D
                     int desiredX = t.x + x;
                     int desiredY = t.y + y;
                     // iF desiredx is within range of tiles array length
-                    if (desiredX < height && desiredY < width)
+                    if (desiredX < width && desiredY < height)
                     {
                         if (tiles[x, y].isMine)
                         {
