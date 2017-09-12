@@ -14,8 +14,12 @@ namespace Minesweeper2D
         [Header("References")]
         public Sprite[] emptySprites; // list of empty sprites ie, empty, 1, 2, 3, 4, etc...
         public Sprite[] mineSprites; // The mineSprites
+        public Sprite defaultSprite;
+        public Sprite flagSprite;
 
         private SpriteRenderer rend; // Reference to sprite renderer
+
+        private bool isFlagged = false;
 
         void Awake()
         {
@@ -46,6 +50,20 @@ namespace Minesweeper2D
         // Update is called once per frame
         void Update() {
 
+        }
+        public void ToggleFlag()
+        {
+            isFlagged = !isFlagged;
+            if (isFlagged)
+            {
+                // SET rend.sprite to flagSprite
+                rend.sprite = flagSprite;
+            }
+            else
+            {
+                // SET rend.sprite to defaultSprite
+                rend.sprite = defaultSprite;
+            }
         }
     }
 }
