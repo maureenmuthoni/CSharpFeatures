@@ -95,7 +95,7 @@ namespace Minesweeper2D
         //        }
         //    }
         //}
-
+     
         // Count adjacent mines at element
         public int GetAdjacentMineCountAt(Tile t)
         {
@@ -110,18 +110,18 @@ namespace Minesweeper2D
                     int desiredY = t.y + y;
 
                     // iF desiredx is within range of tiles array length
-                    if (desiredX < height && desiredX >= 0)
+                    if (desiredX < height && desiredY < width)
                     {
                         if (desiredY < height && desiredY >= 0)
                         {
                             // IF the element at index isMine
                             Tile tile = tiles[desiredX, desiredY];
                             if(tile.isMine)
-                            {
-                                //Increment count  by 1
-                                count++;
-                            }
+                        {
+                            //Increment count  by 1
+                            count++;
                         }
+                    }
                     }
                 }
             }
@@ -189,7 +189,7 @@ namespace Minesweeper2D
                 }
             }
         }
-
+                    
         // Detects if there are no more empty tiles in the game
         bool NoMoreEmptyTiles()
         {
@@ -208,9 +208,9 @@ namespace Minesweeper2D
                     {
                         // SET emptyTileCount = emptyTileCount + 1
                         emptyTileCount = emptyTileCount + 1;
-                    }
                 }
             }
+        }
             // RETURN emptyTileCount == 0;
             return emptyTileCount == 0;
         }
@@ -228,7 +228,7 @@ namespace Minesweeper2D
                 // CALL UncoverMines(0)
                 UncoverMines(0);
                 // [EXTRA] perfom Game over logic
-            }
+    }
 
             // ELSEIF adjacentMines == 0
             else if (adjacentMines == 0)
@@ -271,7 +271,7 @@ namespace Minesweeper2D
                     }
                 }
             }
-
+        
             // Use flag on GetMouseButtonDown((int)MouseButton.RIGHT_MOUSE)
             if (Input.GetMouseButtonDown((int)MouseButton.RIGHT_MOUSE))
             {
