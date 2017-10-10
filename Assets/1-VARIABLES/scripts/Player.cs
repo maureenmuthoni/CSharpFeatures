@@ -12,13 +12,13 @@ namespace Variables
         public float rotationSpeed = 2f;
         public float deceleration = 0.1f;
 
-        private Rigidbody2D rigid2D;
+        private Rigidbody rigid;
 
         // use this for initialization
         void Start()
         {
             // Get component from GameObject
-            rigid2D = GetComponent<Rigidbody2D>();
+            rigid = GetComponent<Rigidbody>();
         }
 
 
@@ -33,8 +33,8 @@ namespace Variables
         void Movement()
         {
             float inputV = Input.GetAxis("Vertical");
-            rigid2D.AddForce(transform.right * inputV *movementSpeed);
-            rigid2D.velocity += -rigid2D.velocity * deceleration * Time.deltaTime;
+            rigid.AddForce(transform.right * inputV *movementSpeed);
+            rigid.velocity += -rigid.velocity * deceleration * Time.deltaTime;
         }
 
         

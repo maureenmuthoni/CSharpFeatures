@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+
 namespace TowerDefence
 {
-
     public class AIAgent : MonoBehaviour
     {
         public Transform target;
+
         private NavMeshAgent nav;
 
         // Use this for initialization
@@ -19,13 +20,12 @@ namespace TowerDefence
         // Update is called once per frame
         void Update()
         {
-            //IF target != null
+            // IF target != null
             if (target != null)
             {
-                // set destinction to target's position
+                // Set destination to target's position
                 nav.SetDestination(target.position);
             }
-
         }
     }
 }
