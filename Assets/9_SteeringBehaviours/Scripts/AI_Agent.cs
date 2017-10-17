@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 namespace AI
 {
-            public class AI_Agent : MonoBehaviour
+    public class AI_Agent : MonoBehaviour
     {
         public Vector3 force;
         public Vector3 velocity;
@@ -42,7 +42,7 @@ namespace AI
                 // SET force = force + behaviour.GetForce() x  weighting
                 force = force + behaviour.GetForce() * behaviour.weighting;
                 // IF force.magnitude > maxVelocity
-                if(force.magnitude > maxVelocity)
+                if (force.magnitude > maxVelocity)
                 {
                     // SET force force.normalized x maxVelocity
                     force = force.normalized * maxVelocity;
@@ -64,7 +64,7 @@ namespace AI
             }
 
             // IF velocity.magnitude > 0
-            if(velocity.magnitude > 0)
+            if (velocity.magnitude > 0)
             {
                 // SET transform.position = transform.position + velocity x deltaTime
                 transform.position = transform.position + velocity * Time.deltaTime;
@@ -81,4 +81,4 @@ namespace AI
             ApplyVelocity();
         }
     }
-}                                                                                         f
+}

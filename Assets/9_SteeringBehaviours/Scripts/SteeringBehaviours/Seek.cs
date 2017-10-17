@@ -22,6 +22,7 @@ namespace AI
 
             // LET dedsiredForce = target position - transform position
             // IF desiredForce magnitude > stoppingDistance
+            
             // desiredForce = desirewdForce normalized x weighting
             // force = desiredForce - owner.velocity
 

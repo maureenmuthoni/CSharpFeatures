@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace Inheritance
 {
-    public class Splodey: Enemy
+    public class Splodey : Enemy
     {
         [Header("Splodey")]
         public float splosionRadius = 5f;
@@ -11,24 +11,49 @@ namespace Inheritance
         public float impactForce = 10f;
         public GameObject explosionParticles;
 
-        // Use this for initialization
-     public  override void Attack() 
-        {
-            // Start to ignition timer
-             // IF explosionTimer > splosionRate
-             // call Explode()
-
-        }
+        private float splosionTimer = 0f;
 
         // Update is called once per frame
-        void Explode() 
+        protected override void Update()
+        {
+            base.Update();
+
+            // start splosionTimer
+            splosionTimer += Time.deltaTime;
+        }
+
+        protected override void OnAttackEnd()
+        {
+            // IF explosionTimer > splosionRate
+            if (splosionTimer > splosionRate)
+            {
+                //call splode
+                Splode();
+                Destroy(gameObject);
+            }
+        }
+
+        void Splode()
         {
             // Perfom  physics OverlapSphere with splosionRadius
+            Collider[] hits = Physics.OverlapSphere(transform.position, splosionRadius);
             //Loop through all hits
-            // If player
-            // Add impact to rigidbody
+            foreach (var hit in hits)
+            {
+                Health h = hit.GetComponent<Health>();
+                if (h != null)
+                {
+                    h.TakeDamage(damage);
 
-            // Destroy self
+
+                }
+                Rigidbody r = hit.GetComponent<Rigidbody>();
+                if (r != null)
+                {
+
+                    r.AddExplosionForce(impactForce, transform.position, splosionRadius);
+                }
+            }                                   
         }
     }
 }
