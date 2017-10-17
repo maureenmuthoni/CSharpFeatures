@@ -71,31 +71,31 @@ namespace Minesweeper2D
         }
 
         // Update is called once per frame
-        //void FixedUpdate()
-        //{
-        //    if (Input.GetMouseButtonUp(0))
-        //    {
-        //        // LET mouseRay = Camera ScreenPointToRay mousePosition
-        //        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //        // LET hit = Physics2D RayCast from mouse ray
-        //        RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
-        //        // IF  hit collider != null
-        //        // Check if something is hit
-        //        if (hit.collider != null)
-        //        {
-        //            // LET hitTile = hit collider's tile component
-        //            Tile t = hit.collider.GetComponent<Tile>();
-        //            if (t)
-        //            {
-        //                // LET adjacentMines = GetAdjacentMineCountAt hitTile
-        //                int adjacentMines = GetAdjacentMineCountAt(t);
-        //                // CALL hitTile.Reveal(adjacentMines)
-        //                t.Reveal(adjacentMines);
-        //            }
-        //        }
-        //    }
-        //}
-     
+        void FixedUpdate()
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                // LET mouseRay = Camera ScreenPointToRay mousePosition
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                // LET hit = Physics2D RayCast from mouse ray
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+                // IF  hit collider != null
+                // Check if something is hit
+                if (hit.collider != null)
+                {
+                    // LET hitTile = hit collider's tile component
+                    Tile t = hit.collider.GetComponent<Tile>();
+                    if (t)
+                    {
+                        // LET adjacentMines = GetAdjacentMineCountAt hitTile
+                        int adjacentMines = GetAdjacentMineCountAt(t);
+                        // CALL hitTile.Reveal(adjacentMines)
+                        t.Reveal(adjacentMines);
+                    }
+                }
+            }
+        }
+
         // Count adjacent mines at element
         public int GetAdjacentMineCountAt(Tile t)
         {
@@ -116,12 +116,12 @@ namespace Minesweeper2D
                         {
                             // IF the element at index isMine
                             Tile tile = tiles[desiredX, desiredY];
-                            if(tile.isMine)
-                        {
-                            //Increment count  by 1
-                            count++;
+                            if (tile.isMine)
+                            {
+                                //Increment count  by 1
+                                count++;
+                            }
                         }
-                    }
                     }
                 }
             }
@@ -164,11 +164,11 @@ namespace Minesweeper2D
                 FFuncover(x, y - 1, visited);
                 // CALL FFuncover(x, y + 1, visited)
                 FFuncover(x, y + 1, visited);
-            }          
+            }
         }
 
         // Uncovers all mines that are in the grid
-        public void UncoverMines(int mineState) 
+        public void UncoverMines(int mineState)
         {
             // FOR x = 0 to x < width
             for (int x = 0; x < width; x++)
@@ -189,7 +189,7 @@ namespace Minesweeper2D
                 }
             }
         }
-                    
+
         // Detects if there are no more empty tiles in the game
         bool NoMoreEmptyTiles()
         {
@@ -208,9 +208,9 @@ namespace Minesweeper2D
                     {
                         // SET emptyTileCount = emptyTileCount + 1
                         emptyTileCount = emptyTileCount + 1;
+                    }
                 }
             }
-        }
             // RETURN emptyTileCount == 0;
             return emptyTileCount == 0;
         }
@@ -228,7 +228,7 @@ namespace Minesweeper2D
                 // CALL UncoverMines(0)
                 UncoverMines(0);
                 // [EXTRA] perfom Game over logic
-    }
+            }
 
             // ELSEIF adjacentMines == 0
             else if (adjacentMines == 0)
@@ -271,7 +271,7 @@ namespace Minesweeper2D
                     }
                 }
             }
-        
+
             // Use flag on GetMouseButtonDown((int)MouseButton.RIGHT_MOUSE)
             if (Input.GetMouseButtonDown((int)MouseButton.RIGHT_MOUSE))
             {
