@@ -4,9 +4,9 @@ using UnityEngine;
 
 using UnityEngine.AI;
 
-namespace AI
+namespace  SteeringBehaviours
 {
-    public class AI_Agent : MonoBehaviour
+    public class AIAgent : MonoBehaviour
     {
         public Vector3 force;
         public Vector3 velocity;

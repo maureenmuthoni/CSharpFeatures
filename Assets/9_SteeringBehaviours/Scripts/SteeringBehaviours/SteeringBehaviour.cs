@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace AI
+namespace SteeringBehaviours
 {
-    [RequireComponent(typeof(AI_Agent))]
+    [RequireComponent(typeof(AIAgent))]
 
     public class SteeringBehaviour : MonoBehaviour
     {
         public float weighting = 7.5f;
         public Vector3 force;
-        public AI_Agent owner;
+        public AIAgent owner;
 
         protected virtual void Awake()
         {
-            owner = GetComponent<AI_Agent>();
+            owner = GetComponent<AIAgent>();
         }
 
         public  virtual Vector3 GetForce()
