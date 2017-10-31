@@ -6,13 +6,13 @@ using GGL;
 namespace SteeringBehaviours
 {
 
-    public class Seek : SteeringBehaviour
+    public class Flee : SteeringBehaviour
     {
         public Transform target;
         public float StoppingDistance = 1f;
 
-      
-        public override  Vector3 GetForce()
+
+        public override Vector3 GetForce()
         {
             // SET force to vector3.zero
             Vector3 force = Vector3.zero;
@@ -24,13 +24,13 @@ namespace SteeringBehaviours
             }
 
             // LET desiredForce = target position - transform position
-            Vector3 desiredForce = target.position - transform.position;
+            Vector3 desiredForce = transform.position - target.position;
             // -(target.position - transform.position) = - target.position + transform.position
             // IF desiredForce magnitude > stoppingDistance
-            if(desiredForce.magnitude > StoppingDistance)
+            if (desiredForce.magnitude > StoppingDistance)
             {
                 // desiredForce = desiredForce normalized x weighting
-                desiredForce = desiredForce.normalized* weighting;
+                desiredForce = desiredForce.normalized * weighting;
                 // force = desiredForce - owner.velocity
                 force = desiredForce - owner.velocity;
             }
