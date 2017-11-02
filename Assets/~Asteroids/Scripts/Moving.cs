@@ -22,7 +22,7 @@ namespace Asteroids
         {
             float InputV = Input.GetAxis("Vertical");
         }
-        // Rotates the player(in degrees)
+        //Rotates player(in degrees)
         void Rotate()
         {
             float InputH = Input.GetAxis("Horizontal");

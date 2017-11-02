@@ -20,14 +20,14 @@ namespace Inheritance
         }
         protected override void Attack()
         {
-            // Add force to self
+            //Add force to selfs
             rigid.AddForce(transform.forward * knockback, ForceMode.Impulse);
         }
 
 
         void OnCollisionEnter(Collision col)
         {
-            // if collision hits player
+            //if collision hits player
             if (col.gameObject != null && gameObject.tag == "Player")
             {
                 Rigidbody r = col.collider.GetComponent<Rigidbody>();
