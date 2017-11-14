@@ -4,31 +4,34 @@ using UnityEngine;
 
 namespace PaperMarioClone
 {
+    [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(PlayerController))]
-    public class UserInput : MonoBehaviour
-    {
+    public class MarioAnimator : MonoBehaviour
+    {        
+        private Animator anim;
         private PlayerController pController;
+        private bool jump = false;
 
         // Use this for initialization
         void Start()
         {
+            anim = GetComponent<Animator>();
             pController = GetComponent<PlayerController>();
         }
 
         // Update is called once per frame
         void Update()
         {
-            // Get inputH and inputH
-            float inputH = Input.GetAxis("Horizontal");
-            float inputV = Input.GetAxis("Vertical");
-            // Move the PlayerController
-            pController.Move(inputH, inputV);
-            // Is space being pressed
-            if (Input.GetKeyDown(KeyCode.Space))
+            Vector3 inputDir = pController.inputDir;
+            if(inputDir.x > 0)
             {
-                // Jump
-                pController.Jump();
+                anim.SetBool("IsFlipped", true);
+            }
+            else if(inputDir.x < 0)
+            {
+                anim.SetBool("IsFlipped", false);
             }
         }
     }
 }
+

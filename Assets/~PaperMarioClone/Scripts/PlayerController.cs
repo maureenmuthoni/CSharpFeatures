@@ -22,8 +22,9 @@ namespace PaperMarioClone
         }
         private Vector3 gravity;
         private Vector3 movement;
-        private Vector3 inputDir;
+        public  Vector3 inputDir;
         private bool jump = false;
+        private bool jumpInstant = false;
 
 
         // Use this for initialization
@@ -37,47 +38,45 @@ namespace PaperMarioClone
         {
             // Is the controller runing?
             if (isRunning)
-                movement *= runSpeed; // Run Forrest!!
+                movement *= runSpeed;
             else
-                movement *= walkSpeed; //Walk!
-            //Is the controller grounded?
-            if (isGrounded)
+                movement *= walkSpeed;
+
+            if (!isGrounded)
             {
-                //Cancel out gravity if only you have been grounded
+                gravity += Physics.gravity * Time.deltaTime;
+            }
+            else
+            {
                 gravity = Vector3.zero;
-                //Is the controller jumping?
                 if (jump)
                 {
-                    // make character jump
                     gravity.y = jumpHeight;
                     jump = false;
                 }
             }
-            else
+
+            if (jumpInstant)
             {
-                // Applying gravity
-                gravity += Physics.gravity * Time.deltaTime;
+                gravity.y = jumpHeight;
+                jumpInstant = false;
             }
-            // Apply Movement
+           
             movement += gravity;
             controller.Move(movement * Time.deltaTime);
         }
 
-        // Controller jump
-        public void Jump()
+        public void Jump(bool instant = false)
         {
-            // jump!
-            jump = true;
+            if (instant) 
+                jumpInstant = true;
+            else
+                jump = true;
         }
+
         public void Move(float inputH, float inputV)
         {
-            // is moveInJump enabled? OR 
-            // IS moveInJump disabled and controller IsGrounded
-            if(moveInJump ||(moveInJump == false && isGrounded))
-            {
-                inputDir = new Vector3(inputH, 0, inputV);
-            }
-            // Transform direction of movement based on input
+            Vector3 inputDir = new Vector3(inputH, 0, inputV);
             movement = transform.TransformDirection(inputDir);
         }
 
