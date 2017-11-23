@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using GGL;
 namespace MOBA
 {
     public class Seek : SteeringBehaviour
@@ -19,9 +19,15 @@ namespace MOBA
 
             // SET desiredForce
             Vector3 desiredForce = target.position - transform.position;
-            
+            #region GizmosGl
+            GizmosGL.AddLine(transform.position, target.position, 0.1f, 0.1f, Color.blue, Color.blue);
+            Sphere s = GizmosGL.AddSphere(target.position, stoppingDistance);
+            s.color = new Color(0, 1, 1, 0.2f);
+
+            #endregion
+
             // Check if the direction is valid
-            if (desiredForce.magnitude > stoppingDistance)
+            if (desiredForce.magnitude > stoppingDistance * 2f) ;
             {
                 // Calculate force
                 desiredForce = desiredForce.normalized * weighting;

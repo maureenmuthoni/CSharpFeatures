@@ -43,9 +43,14 @@ namespace MOBA
                 //Apply behaviour's force to our final force
                 force += b.GetForce() * b.weighting;
                 //check if force has gone over maxSpeed
-                force = force.normalized * maxSpeed;
-                // Exit for loop
-                break;
+                if (force.magnitude > maxSpeed)
+                {
+                    // Set force = force.normalized * maxSpeed
+                    force = force.normalized * maxSpeed;
+                    // Exit for loop
+                    break;
+                }
+
             }
         }
 
@@ -57,21 +62,24 @@ namespace MOBA
             //Update my nav's speed to velocity
             nav.speed = velocity.magnitude;
             //is there a velocity
-            if (velocity.magnitude > maxSpeed)
+            if (velocity.magnitude > 0 && nav.updatePosition)
             {
-                // cap velocity to maxspeed
-                velocity = velocity.normalized * maxSpeed;
+                if (velocity.magnitude > maxSpeed)
+                {
+                    // cap velocity to maxspeed
+                    velocity = velocity.normalized * maxSpeed;
+                }
+                // predict the next position
+                Vector3 pos = transform.position + velocity;
+                //perfom NavMesh sampling
+                NavMeshHit navHit;
+                if (NavMesh.SamplePosition(pos, out navHit, maxDistance, -1))
+                {
+                    // Set nav destination to nav hit position
+                    nav.SetDestination(navHit.position);
+                }
             }
-            // predict the next position
-            Vector3 pos = transform.position + velocity;
-            //perfom NvMesh sampling
-            NavMeshHit navHit;
-            if (NavMesh.SamplePosition(pos, out navHit, maxDistance, -1))
-            {
-                // Set nav destination to nav hit position
-                nav.SetDestination(navHit.position);
-            }
-        
+
         }
 
         // Update
