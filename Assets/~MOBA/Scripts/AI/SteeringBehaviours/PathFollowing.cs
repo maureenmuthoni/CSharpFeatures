@@ -107,8 +107,7 @@ namespace MOBA
 
                             // Get the current corner position
                             Vector3 currentPos = corners[currentNode];
-                            // Is the agent at the target?
-                            isAtTarget = currentNode == lastIndex;
+                           
                             // Get distance to current pos
                             float distance = Vector3.Distance(transform.position, currentPos);
                             // Is the distance within the node radius?
@@ -117,6 +116,13 @@ namespace MOBA
                                 // Move to next node
                                 currentNode++;
                             }
+
+                            // Is the agent at the target?
+                            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+                            isAtTarget = distanceToTarget <= targetRadius;
+
+                            // seek towards current node's position
+                            force = Seek(currentPos);
 
                             // Seek towards current node's position
                             force = Seek(currentPos);
